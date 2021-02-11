@@ -19,7 +19,7 @@
             </div>
             <div class="camera-container">
                 <div class="app__container">
-                    <video muted autoPlay class="app__videoFeed"></video>
+                    <video muted autoPlay facingMode="environment"  class="app__videoFeed"></video>
                     <div class="demo">
                         <model-viewer src="./RobotExpressive.glb" auto-rotate camera-controls>
                         </model-viewer>
@@ -42,8 +42,7 @@
             console.log('start');
             navigator.getUserMedia(
                 {
-                    video: true,
-                    facingMode: "environment" 
+                    video: true
                 },
                 (stream) => {
                     if (video) {
