@@ -16,10 +16,11 @@
         <div class="camera">
             <div class="app__input">
                 <button onclick="takePicture()">Take a picture</button>
+                <button onclick="changeCamera()">Change camera</button>
             </div>
             <div class="camera-container">
                 <div class="app__container">
-                    <video muted autoPlay  class="app__videoFeed"></video>
+                    <video muted autoPlay class="app__videoFeed"></video>
                     <div class="demo">
                         <model-viewer src="./RobotExpressive.glb" auto-rotate camera-controls>
                         </model-viewer>
@@ -38,11 +39,12 @@
     </div>
     <script>
         var video = document.getElementsByClassName('app__videoFeed')[0];
+        var mode = 'user'
         function startVideo() {
             console.log('start');
             navigator.getUserMedia(
                 {
-                    video: {facingMode: "environment" }
+                    video: { facingMode: mode }
                 },
                 (stream) => {
                     if (video) {
@@ -53,7 +55,10 @@
             );
         }
         startVideo()
-
+        function changeCamera() {
+            if(mode === 'user') mode = 'environment'
+            else mode = 'user'
+        }
 
         // const handleChange = ({ target }) => {
         //     const file = target.files[0]
