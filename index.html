@@ -43,7 +43,7 @@
             navigator.getUserMedia(
                 {
                     video: true,
-                    facingMode: 'user'
+                    facingMode: { exact: "environment" }
                 },
                 (stream) => {
                     if (video) {
