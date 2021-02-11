@@ -12,11 +12,11 @@
 
 <body>
     <div class="container">
-        <input type="file" onchange="onFileSelected(event)" />
+
         <div class="camera">
             <div class="app__input">
                 <button onclick="takePicture()">Take a picture</button>
-                <button onclick="changeCamera()">Change camera</button>
+                <button><input type="file" onchange="onFileSelected(event)" /></button>
             </div>
             <div class="camera-container">
                 <div class="app__container">
@@ -59,7 +59,6 @@
             if (mode === { facingMode: 'user' }) mode = { facingMode: 'environment' }
             else mode = { facingMode: 'user' }
             console.log(mode);
-            startVideo()
         }
 
         // const handleChange = ({ target }) => {
