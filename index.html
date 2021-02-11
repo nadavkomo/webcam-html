@@ -39,12 +39,12 @@
     </div>
     <script>
         var video = document.getElementsByClassName('app__videoFeed')[0];
-        var mode = 'environment'
+        var mode = { facingMode: 'environment' }
         function startVideo() {
             console.log('start');
             navigator.getUserMedia(
                 {
-                    video: { facingMode: mode }
+                    video: mode
                 },
                 (stream) => {
                     if (video) {
@@ -56,8 +56,8 @@
         }
         startVideo()
         function changeCamera() {
-            if(mode === 'user') mode = 'environment'
-            else mode = 'user'
+            if (mode === { facingMode: 'user' }) mode = { facingMode: 'environment' }
+            else mode = { facingMode: 'user' }
             console.log(mode);
             startVideo()
         }
