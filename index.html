@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <input type="file" onchange="onFileSelected(event)" />
+        <div class="camera">
+            <div class="app__input">
+                <button onclick="takePicture()">Take a picture</button>
+            </div>
+            <div class="camera-container">
+                <div class="app__container">
+                    <video muted autoPlay class="app__videoFeed"></video>
+                    <div class="demo">
+                        <model-viewer src="./RobotExpressive.glb" auto-rotate camera-controls>
+                        </model-viewer>
+                    </div>
+                </div>
+                <div class="screenshot">
+                    <img id="myimage" src="./default.png" alt="" />
+                    <div class="demo">
+                        <model-viewer src="./RobotExpressive.glb" auto-rotate camera-controls>
+                        </model-viewer>
+                    </div>
+                </div>
+            </div>
+            <canvas class="canvas" height=500 width=500></canvas>
+        </div>
+    </div>
+    <script>
+        var video = document.getElementsByClassName('app__videoFeed')[0];
+        function startVideo() {
+            console.log('start');
+            navigator.getUserMedia(
+                {
+                    video: true,
+                },
+                (stream) => {
+                    if (video) {
+                        video.srcObject = stream;
+                    }
+                },
+                (err) => console.error(err)
+            );
+        }
+        startVideo()
+
+
+        // const handleChange = ({ target }) => {
+        //     const file = target.files[0]
+        //     if (file) {
+        //         const reader = new FileReader();
+        //         reader.addEventListener("load", function () {
+        //             console.log(this);
+        //             setUrl(this.result)
+        //         })
+        //         reader.readerAsDataURL(file);
+        //     }
+        // }
+
+        function takePicture() {
+            var canvas = document.querySelector('canvas')
+            canvas.style.display = 'none'
+            var context = canvas.getContext('2d')
+            context.drawImage(video, 0, 0, 500, 500)
+            // context.drawImage(lion, 0, 0, 100, 100)
+            make_base();
+        }
+
+        function make_base() {
+            var canvas = document.querySelector('.canvas')
+            var context = canvas.getContext('2d')
+            var imgtag = document.getElementById("myimage");
+            imgtag.src = canvas.toDataURL()
+        }
+
+        function onFileSelected(event) {
+            var selectedFile = event.target.files[0];
+            var reader = new FileReader();
+
+            var imgtag = document.getElementById("myimage");
+            imgtag.title = selectedFile.name;
+
+            reader.onload = function (event) {
+                imgtag.src = event.target.result;
+            };
+
+            reader.readAsDataURL(selectedFile);
+        }
+
+    </script>
+</body>
+
+</html>
