@@ -39,7 +39,7 @@
     </div>
     <script>
         var video = document.getElementsByClassName('app__videoFeed')[0];
-        var mode = 'user'
+        var mode = 'environment'
         function startVideo() {
             console.log('start');
             navigator.getUserMedia(
@@ -58,6 +58,8 @@
         function changeCamera() {
             if(mode === 'user') mode = 'environment'
             else mode = 'user'
+            console.log(mode);
+            startVideo()
         }
 
         // const handleChange = ({ target }) => {

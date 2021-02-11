@@ -17,36 +17,43 @@
     position: relative;
 }
 
+.app__container>video {
+    width: 350px;
+    height: 350px;
+}
+
 .app__container>.demo {
     position: absolute;
-    top: 65px;
+    top: 40px;
     left: 0;
-    width: 100px;
     z-index: 1;
 }
+
+.app__container>.demo>model-viewer {
+    width: 150px;
+}
+
 
 
 .screenshot {
     margin-left: 15px;
-    width: 500px;
-    height: 500px;
+    width: 350px;
+    height: 268px;
     position: relative;
 
 }
 
 .screenshot>img {
-    height: 375px;
+    height: 100%;
     width: 100%;
     position: absolute;
-    bottom: 65px;
+    /* bottom: 65px; */
 }
 
-.screenshot>.demo {
+.screenshot>.demo>model-viewer {
+    width: 150px;
     position: absolute;
-    top: 65px;
+    top: 0;
     left: 0;
-    width: 100px;
     z-index: 1;
 }
-
-;
