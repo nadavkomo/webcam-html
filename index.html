@@ -18,10 +18,11 @@
                 <button onclick="takePicture()">Take a picture</button>
                 <button><input type="file" onchange="onFileSelected(event)" /></button>
             </div>
+            <button class="change-model-btn" onclick="changeModel()">Change 3D Model</button>
             <div class="btns-action">
-                <button onclick="changeAcion('none')">STOP</button>
-                <button onclick="changeAcion('Running')">RUN</button>
-                <button onclick="changeAcion('Wave')">WAVE</button>
+                <button onclick="changeAction('none')">STOP</button>
+                <button onclick="changeAction('Running')">RUN</button>
+                <button onclick="changeAction('Idle')">IDLE</button>
             </div>
             <div class="btns-position">
                 <button onclick="changePositionTop()">Up</button>
@@ -124,11 +125,39 @@
             reader.readAsDataURL(selectedFile);
         }
 
-        function changeAcion(action) {
+        async function changeModel() {
             var modelViewer1 = document.getElementById('model1')
             var modelViewer2 = document.getElementById('model2')
-            modelViewer1.animationName = action
-            modelViewer2.animationName = action
+            if (modelViewer1.src === './Wolf-Blender-2.82a.glb') {
+                modelViewer1.src = './RobotExpressive.glb'
+                modelViewer2.src = './RobotExpressive.glb'
+            } else if (modelViewer1.src === './RobotExpressive.glb') {
+                modelViewer1.src = './Wolf-Blender-2.82a.glb'
+                modelViewer2.src = './Wolf-Blender-2.82a.glb'
+            }
+        }
+
+        function changeAction(action) {
+            var modelViewer1 = document.getElementById('model1')
+            var modelViewer2 = document.getElementById('model2')
+            if (modelViewer1.src === './Wolf-Blender-2.82a.glb') {
+                console.log('check');
+                if (action === 'none') {
+                    modelViewer1.animationName = '05_site_Armature_0'
+                    modelViewer2.animationName = '05_site_Armature_0'
+                }
+                else if (action === 'Running') {
+                    modelViewer1.animationName = '01_Run_Armature_0'
+                    modelViewer2.animationName = '01_Run_Armature_0'
+                }
+                else if (action === 'Idle') {
+                    modelViewer1.animationName = '04_Idle_Armature_0'
+                    modelViewer2.animationName = '04_Idle_Armature_0'
+                }
+            } else if (modelViewer1.src === './RobotExpressive.glb') {
+                modelViewer1.animationName = action
+                modelViewer2.animationName = action
+            }
         }
         if (isMobile) {
             var demo1 = document.querySelector('.app__container .demo')
@@ -141,7 +170,6 @@
             var demo1 = document.querySelector('.app__container .demo')
             var modelViewer2 = document.getElementById('model2')
             var leftNumbers = demo1.style.left.replace('px', '')
-            console.log(+leftNumbers);
             if (+leftNumbers > 350 || (isMobile && +leftNumbers > 150)) {
                 demo1.style.left = '0px'
                 modelViewer2.style.left = '0px'
@@ -155,7 +183,6 @@
             var demo1 = document.querySelector('.app__container .demo')
             var modelViewer2 = document.getElementById('model2')
             var leftNumbers = demo1.style.left.replace('px', '')
-            console.log(+leftNumbers);
             if (+leftNumbers === 0) {
                 if (isMobile) {
                     demo1.style.left = '200px'
@@ -174,7 +201,6 @@
             var demo1 = document.querySelector('.app__container .demo')
             var modelViewer2 = document.getElementById('model2')
             var leftNumbers = demo1.style.top.replace('px', '')
-            console.log(+leftNumbers);
             if (+leftNumbers < 50) {
                 demo1.style.top = '240px'
                 modelViewer2.style.top = '240px'
@@ -188,7 +214,6 @@
             var demo1 = document.querySelector('.app__container .demo')
             var modelViewer2 = document.getElementById('model2')
             var leftNumbers = demo1.style.top.replace('px', '')
-            console.log(+leftNumbers);
             if (+leftNumbers > 200) {
                 demo1.style.top = '0px'
                 modelViewer2.style.top = '0px'
