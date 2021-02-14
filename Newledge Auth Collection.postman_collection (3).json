@@ -1,0 +1,101 @@
+{
+	"info": {
+		"_postman_id": "5a379a28-cae4-47de-bdd7-aa47b4c9c121",
+		"name": "Newledge Auth Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authenticate user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"m\",\n    \"password\": \"1\"\n}"
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/auth/newledge/token",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"auth",
+						"newledge",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add score",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"score\": 100}"
+				},
+				"url": {
+					"raw": "127.0.0.1:8000/newledge/api/scores/?AccessToken=tOY2PPKL9aM9mKzdztEIqLJKbv5WA90H",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"newledge",
+						"api",
+						"scores",
+						""
+					],
+					"query": [
+						{
+							"key": "AccessToken",
+							"value": "tOY2PPKL9aM9mKzdztEIqLJKbv5WA90H"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Companies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:8000/users/api/company/?AccessToken=LTiW7963lMXnmG8ZfHrTKN0sOUupJOYUs0UmrgXjCk1EIErCOftru9Vd6ltG2ZOJdb6Y2FqStRpJ1cUSGcoavHFWSVQvxQdGQFTrwKSJYzCF3WCJspZ02LAPavroI6Em",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"users",
+						"api",
+						"company",
+						""
+					],
+					"query": [
+						{
+							"key": "AccessToken",
+							"value": "LTiW7963lMXnmG8ZfHrTKN0sOUupJOYUs0UmrgXjCk1EIErCOftru9Vd6ltG2ZOJdb6Y2FqStRpJ1cUSGcoavHFWSVQvxQdGQFTrwKSJYzCF3WCJspZ02LAPavroI6Em"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
