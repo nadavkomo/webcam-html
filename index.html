@@ -142,7 +142,7 @@
             var modelViewer2 = document.getElementById('model2')
             var leftNumbers = demo1.style.left.replace('px', '')
             console.log(+leftNumbers);
-            if (+leftNumbers > 350 || (isMobile && +leftNumbers > 150 )) {
+            if (+leftNumbers > 350 || (isMobile && +leftNumbers > 150)) {
                 demo1.style.left = '0px'
                 modelViewer2.style.left = '0px'
             }
@@ -157,8 +157,13 @@
             var leftNumbers = demo1.style.left.replace('px', '')
             console.log(+leftNumbers);
             if (+leftNumbers === 0) {
-                demo1.style.left = '400px'
-                modelViewer2.style.left = '400px'
+                if (isMobile) {
+                    demo1.style.left = '350px'
+                    modelViewer2.style.left = '350px'
+                } else {
+                    demo1.style.left = '400px'
+                    modelViewer2.style.left = '400px'
+                }
             }
             else {
                 demo1.style.left = +leftNumbers - 50 + 'px'
