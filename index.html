@@ -10,9 +10,8 @@
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 </head>
 
-<body>
+<body onload="init()">
     <div class="container">
-
         <div class="camera">
             <div class="app__input">
                 <button onclick="takePicture()">Take a picture</button>
@@ -36,7 +35,7 @@
                 <div class="app__container">
                     <video muted autoPlay class="app__videoFeed"></video>
                     <div class="demo">
-                        <model-viewer id="model1" src="./RobotExpressive.glb" camera-controls autoplay
+                        <model-viewer id="model1" src="./glb/RobotExpressive.glb" camera-controls autoplay
                             animation-name="none" ar>
                         </model-viewer>
                     </div>
@@ -44,14 +43,28 @@
                 <div class="screenshot">
                     <img id="myimage" src="./default.png" alt="" />
                     <div class="demo">
-                        <model-viewer id="model2" src="./RobotExpressive.glb" camera-controls autoplay
+                        <model-viewer id="model2" src="./glb/RobotExpressive.glb" camera-controls autoplay
                             animation-name="none" ar>
                         </model-viewer>
                     </div>
                 </div>
             </div>
-            <canvas class="canvas" height=500 width=500></canvas>
+            <canvas style="display: none;" class="canvas" height=500 width=500></canvas>
         </div>
+        <section class="content text-center">
+            <h2 class="question"></h2>
+            <section class="model">
+                <div class="model-content">
+                    <h2 class="title"></h2>
+                    <button class="close-btn hover-pointer" onclick="closeModel()">X</button>
+                </div>
+            </section>
+            <section class="answers">
+                <h3 class="answer1 hover-pointer" onclick="checkAns(event)"></h3>
+                <h3 class="answer2 hover-pointer" onclick="checkAns(event)"></h3>
+                <h3 class="answer3 hover-pointer" onclick="checkAns(event)"></h3>
+            </section>
+        </section>
     </div>
     <script>
         var isMobile = false; //initiate as false
@@ -128,19 +141,19 @@
         async function changeModel() {
             var modelViewer1 = document.getElementById('model1')
             var modelViewer2 = document.getElementById('model2')
-            if (modelViewer1.src === './Wolf-Blender-2.82a.glb') {
-                modelViewer1.src = './RobotExpressive.glb'
-                modelViewer2.src = './RobotExpressive.glb'
-            } else if (modelViewer1.src === './RobotExpressive.glb') {
-                modelViewer1.src = './Wolf-Blender-2.82a.glb'
-                modelViewer2.src = './Wolf-Blender-2.82a.glb'
+            if (modelViewer1.src === './glb/Wolf-Blender.glb') {
+                modelViewer1.src = './glb/RobotExpressive.glb'
+                modelViewer2.src = './glb/RobotExpressive.glb'
+            } else if (modelViewer1.src === './glb/RobotExpressive.glb') {
+                modelViewer1.src = './glb/Wolf-Blender.glb'
+                modelViewer2.src = './glb/Wolf-Blender.glb'
             }
         }
 
         function changeAction(action) {
             var modelViewer1 = document.getElementById('model1')
             var modelViewer2 = document.getElementById('model2')
-            if (modelViewer1.src === './Wolf-Blender-2.82a.glb') {
+            if (modelViewer1.src === './glb/Wolf-Blender.glb') {
                 console.log('check');
                 if (action === 'none') {
                     modelViewer1.animationName = '05_site_Armature_0'
@@ -154,7 +167,7 @@
                     modelViewer1.animationName = '04_Idle_Armature_0'
                     modelViewer2.animationName = '04_Idle_Armature_0'
                 }
-            } else if (modelViewer1.src === './RobotExpressive.glb') {
+            } else if (modelViewer1.src === './glb/RobotExpressive.glb') {
                 modelViewer1.animationName = action
                 modelViewer2.animationName = action
             }
@@ -224,6 +237,51 @@
             }
         }
 
+    </script>
+    <script>
+        var quize = [{
+            question: "What is the favorite food for this dinosaur?",
+            answers: ['bananas', 'meat', 'leaves'],
+            currectAnswer: 2
+        }, {
+            question: "What is the height of the tallest dinosaur?",
+            answers: ['2.5m', '7m', '10m'],
+            currectAnswer: 3
+        }]
+        var currAns = 0
+        function init() {
+            document.querySelector('.question').innerText = quize[currAns].question
+            document.querySelector('.answer1').innerText = quize[currAns].answers[0]
+            document.querySelector('.answer2').innerText = quize[currAns].answers[1]
+            document.querySelector('.answer3').innerText = quize[currAns].answers[2]
+        }
+        function nextQuestion() {
+            if (currAns === 0) currAns++
+            else currAns = 0
+            init()
+        }
+        function checkAns(ev) {
+            document.querySelector('.model').style.display = 'block'
+            document.querySelector('.answers').style.display = 'none'
+            if (ev.target.className.indexOf(quize[currAns].currectAnswer) != -1) {
+                document.querySelector('.model').style.backgroundColor = 'green'
+                document.querySelector('.model .title').innerText = 'Correct Answer:)'
+                setTimeout(() => {
+                    closeModel()
+                    nextQuestion()
+                }, 2000)
+            } else {
+                document.querySelector('.model').style.backgroundColor = 'red'
+                document.querySelector('.model .title').innerText = 'Wrong Answer:('
+                setTimeout(() => {
+                    closeModel()
+                }, 2000)
+            }
+        }
+        function closeModel() {
+            document.querySelector('.model').style.display = 'none'
+            document.querySelector('.answers').style.display = 'block'
+        }
     </script>
 </body>
 
